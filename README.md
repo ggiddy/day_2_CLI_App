@@ -14,13 +14,9 @@ A simple CLI application that consumes a public API using a HTTP client library.
  $ source .env/bin/activate
  ```
  
- Install `docopt`
+ Install `Dependencies`
  
- `$ pip install docopt`
-
- Install `requests`
-
- `$ pip install requests`
+ `$ pip install -r requirements.txt`
  
  Run the application with:
  ```

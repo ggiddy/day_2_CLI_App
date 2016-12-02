@@ -14,15 +14,9 @@ A simple CLI application that consumes a public API using a HTTP client library.
  $ source .env/bin/activate
  ```
  
- Install `Dependencies`
+ Install dependencies
  
  `$ pip install -r requirements.txt`
- 
- Run the application with:
- ```
- $ python app.py -h
- 
- ```
  
  **Commands**
  

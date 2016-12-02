@@ -27,12 +27,12 @@ A simple CLI application that consumes a public API using a HTTP client library.
  **Commands**
  
  ```
- app.py new <title> <body>
- app.py all
- app.py fetch <post_id>
- app.py edit <post_id> <title> <body>
- app.py delete <post_id>
- app.py (-h | --help)
+ python app.py new <title> <body>
+ python app.py all
+ python app.py fetch <post_id>
+ python app.py edit <post_id> <title> <body>
+ python app.py delete <post_id>
+ python app.py (-h | --help)
 
 ```
  

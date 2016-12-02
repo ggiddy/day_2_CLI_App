@@ -1,5 +1,5 @@
-
-"""CLI app implemented in docopt, httplib 
+#! .env/bin/python
+"""CLI app implemented in docopt, and requests library
 
 Usage:
     app.py new <title> <body>
@@ -20,6 +20,7 @@ Options:
 """
 from docopt import docopt
 import requests
+from termcolor import colored
 
 API_URL = 'https://jsonplaceholder.typicode.com/posts/'
 
@@ -28,58 +29,66 @@ if __name__ == '__main__':
 
 if ARGS['new']:
     # POST
-    payload = {
+    PAYLOAD = {
         'title': ARGS['<title>'],
         'body': ARGS['<body>']
     }
-    res = requests.post(API_URL, data = payload)
 
-    if res.status_code == 200:
-        print "Successfully created a new post"
+    RES = requests.post(API_URL, data=PAYLOAD)
+
+    if RES.status_code == 201:
+        print colored('Successfully Created', 'green')
+        for post in RES:
+            print post
     else:
-        print "Problem creating post. Please check if you have write access"
+        print colored('Error: Problem creating post. ' \
+            'Please check if you have write access', 'red')
 
 if ARGS['all']:
     # GET
-    res = requests.get(API_URL)
-    if res.status_code == 200:
-        json_res = res.json()
-        print json_res
+    RES = requests.get(API_URL)
+    if RES.status_code == 200:
+        print colored('Getting all posts...', 'green')
+        for post in RES:
+            print post
     else:
-        print 'There was a problem processing your request'
+        print colored('Error: There was a problem ' \
+            'processing your request', 'red')
 
 if ARGS['fetch']:
     # GET specific
-    post_id = ARGS['<post_id>']
-    res = requests.get(API_URL + post_id)
+    POST_ID = ARGS['<post_id>']
+    RES = requests.get(API_URL + POST_ID)
 
-    if res.status_code == 200:
-        print "Successful"
-        json_res = res.json()
-        print json_res
+    if RES.status_code == 200:
+        print colored('Fetching post ' + POST_ID + ' successful', 'green')
+
+        for post in RES:
+            print post
     else:
-        print 'There was a problem accessing your post'
+        print colored('Error: There was a problem getting your post', 'red')
 
 if ARGS['edit']:
-    # PUT 
-    payload = {
+    # PUT
+    PAYLOAD = {
         'title': ARGS['<title>'],
         'body': ARGS['<body>']
     }
-    res = requests.put(API_URL+ARGS['<post_id>'], data = payload)
+    RES = requests.put(API_URL+ARGS['<post_id>'], data=PAYLOAD)
 
-    if res.status_code == 200:
-        print 'Edit successful'
-        json_res = res.json()
-        print json_res
+    if RES.status_code == 200:
+        print colored('Edit successful', 'green')
+        for post in RES:
+            print post
     else:
-        print 'Problem editting post'
+        print colored('Error: Problem editting post', 'red')
 
 if ARGS['delete']:
     # DELETE
-    res = requests.delete(API_URL+ARGS['<post_id>'])
+    POST_ID = ARGS['<post_id>']
+    RES = requests.delete(API_URL+POST_ID)
 
-    if res.status_code == 200:
-        print 'Post successfully deleted'
+    if RES.status_code == 200:
+        print colored('Post ' + POST_ID + ' successfully deleted', 'green')
     else:
-        print 'Problem encountered deleting post'
+        print colored('Error: Problem deleting post', 'red')

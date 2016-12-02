@@ -17,6 +17,12 @@ A simple CLI application that consumes a public API using a HTTP client library.
  Install dependencies
  
  `$ pip install -r requirements.txt`
+
+ To run the application, navigate to the app/ directory:
+ ```
+ $ cd app/
+
+ ```
  
  **Commands**
  
